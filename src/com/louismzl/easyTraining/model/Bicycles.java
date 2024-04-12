@@ -4,7 +4,7 @@ public class Bicycles extends Vehicles {
 
     // Redéfinition de la méthode getCategory.
     @Override
-    public String getCategory() {
-        return "2 ROUES";
+    public VehicleModelEnum getCategory() {
+        return VehicleModelEnum.DEUXROUES;
     }
 }

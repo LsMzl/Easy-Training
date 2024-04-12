@@ -26,18 +26,19 @@ public class ParkingBot {
     private static void processVehicles() {
         Vehicles vehicle = new Vehicles();
         vehicle.setRegistrationNumber("AZ-244-LV");
-        Tickets vehicleTicket = parkingService.processIncommingVehicle(vehicle);
-        System.out.println(vehicleTicket);
+        Tickets vehicleTicket = parkingService.processIncomingVehicle(vehicle);
+        System.out.println(parkingService.processExitingVehicle(vehicleTicket));
 
         Vehicles yamaha = new Bicycles();
         yamaha.setRegistrationNumber("MT-456-YH");
-        Tickets bicycleTicket = parkingService.processIncommingVehicle(yamaha);
-        System.out.println(bicycleTicket);
+        Tickets bicycleTicket = parkingService.processIncomingVehicle(yamaha);
+        System.out.println(parkingService.processExitingVehicle(bicycleTicket));
 
         Vehicles peugeot = new Cars();
         peugeot.setRegistrationNumber("FF-014-JN");
-        Tickets carTicket = parkingService.processIncommingVehicle(peugeot);
-        System.out.println(carTicket);
+        Tickets carTicket = parkingService.processIncomingVehicle(peugeot);
+        System.out.println(parkingService.processExitingVehicle(carTicket));
+
     }
 
 }

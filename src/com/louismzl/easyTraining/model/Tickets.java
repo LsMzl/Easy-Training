@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class Tickets {
 
-    private String amount;
+    private double amount;
     private Vehicles vehicule;
     private Date enteringTime;
     private Date exitTime;
 
 
-    public String getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
