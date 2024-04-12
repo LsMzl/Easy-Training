@@ -1,11 +1,14 @@
 package com.louismzl.easyTraining;
 
-
+import com.louismzl.easyTraining.model.Bicycles;
+import com.louismzl.easyTraining.model.Cars;
 import com.louismzl.easyTraining.model.Tickets;
 import com.louismzl.easyTraining.model.Vehicles;
 import com.louismzl.easyTraining.service.ParkingServices;
 
 public class ParkingBot {
+
+    static ParkingServices parkingService = new ParkingServices();
 
     /**
      * Fonction principale du programme.
@@ -15,25 +18,26 @@ public class ParkingBot {
         processVehicles();
     }
 
-
     /**
      * Intanciation de chaque véhicule.
      * Génération d'un ticket avec les informations d'un véhicule
      * et la date d'entrée.
      */
     private static void processVehicles() {
-        // Instanciation d'un véhicule
-        Vehicles peugeot = new Vehicles();
+        Vehicles vehicle = new Vehicles();
+        vehicle.setRegistrationNumber("AZ-244-LV");
+        Tickets vehicleTicket = parkingService.processIncommingVehicle(vehicle);
+        System.out.println(vehicleTicket);
+
+        Vehicles yamaha = new Bicycles();
+        yamaha.setRegistrationNumber("MT-456-YH");
+        Tickets bicycleTicket = parkingService.processIncommingVehicle(yamaha);
+        System.out.println(bicycleTicket);
+
+        Vehicles peugeot = new Cars();
         peugeot.setRegistrationNumber("FF-014-JN");
-        peugeot.setCategory("BERLINE");
-
-        // Instanciation d'un parkingServices
-        ParkingServices parkingService = new ParkingServices();
-
-        // Création d'un ticket avec les informations du véhicule peugeot
-        Tickets ticket = parkingService.processIncommingVehicle(peugeot);
-        System.out.println(ticket);
+        Tickets carTicket = parkingService.processIncommingVehicle(peugeot);
+        System.out.println(carTicket);
     }
-
 
 }
