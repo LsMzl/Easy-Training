@@ -1,12 +1,11 @@
 package com.louismzl.easyTraining;
 
-import com.louismzl.easyTraining.model.Bicycles;
-import com.louismzl.easyTraining.model.Cars;
-import com.louismzl.easyTraining.model.Tickets;
-import com.louismzl.easyTraining.model.Vehicles;
+import com.louismzl.easyTraining.model.*;
 import com.louismzl.easyTraining.service.ParkingServices;
 
 import java.util.*;
+
+import static com.louismzl.easyTraining.model.ParkingTypeEnum.SPOT;
 
 public class ParkingBot {
 
@@ -17,15 +16,35 @@ public class ParkingBot {
      * @param args Tableau de données passées en paramètre lors du lancement du programme.
      */
     public static void main(String[] args) {
-        processVehicles();
-        //Passage par valeur
-       /* int a = 10;
-        int b = a;
-        System.out.println("a = " + a + "\nb = " + b);
-
-        a = 15;
-        System.out.println("a = " + a + "\nb = " + b);*/
+        //Initialisation d'un parking
+        Parking parking = parkingService.initParking();
+        listCars(parking);
     }
+
+    /**
+     * Parcours tous les types de parking jusqu'à trouver une place de parking
+     * Affiche l'immatriculation des véhicules et leur place de stationnement
+     * @param parking Parkings à analyser
+     */
+    static void listCars(Parking parking) {
+        // Si c'est une place de parking
+        if (SPOT.equals(parking.getType())){
+            // Récupération du véhicule
+            Vehicles vehicle = parking.getVehicle();
+            System.out.println("Véhicule immatriculé " + vehicle.getRegistrationNumber() + " situé à la place " +
+                                vehicle.getParkingSpotNumber());
+        // Si ce n'est pas une place de parking
+        } else {
+            // Création d'une liste de sous parking
+            List<Parking> subParkings = parking.getSubParkings();
+            // Parcours des sous parking
+            for (Parking subParking: subParkings) {
+                // Appel de la méthode jusqu'à trouver une place de parking
+                listCars(subParking);
+            }
+        }
+    }
+
 
     /**
      * Intanciation de chaque véhicule.

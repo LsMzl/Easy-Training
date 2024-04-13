@@ -1,9 +1,8 @@
 package com.louismzl.easyTraining.service;
 
-import com.louismzl.easyTraining.model.Tickets;
-import com.louismzl.easyTraining.model.Vehicles;
-import com.louismzl.easyTraining.model.VehicleModelEnum;
+import com.louismzl.easyTraining.model.*;
 
+import java.security.SecureRandom;
 import java.util.Date;
 
 public class ParkingServices {
@@ -68,5 +67,47 @@ public class ParkingServices {
         ticket.setAmount(finalPrice);
 
         return ticket;
+    }
+
+
+    public Parking initParking() {
+        // Initialisation du Parking Building
+        Parking building = new Parking();
+        building.setType(ParkingTypeEnum.BUILDING);
+        building.setNumber(1);
+
+        // Initialisation des Parking Etage
+        for (int i = 0; i <= 50; i++) {
+            Parking floor = new Parking();
+            floor.setType(ParkingTypeEnum.FLOOR);
+            floor.setNumber(i);
+            // Ajout des étages au building
+            building.getSubParkings().add(floor);
+
+            // Initialisation des Parking Salles
+            for (int j = 0; j <= 30; j++) {
+                Parking hall = new Parking();
+                hall.setType(ParkingTypeEnum.HALL);
+                hall.setNumber(j);
+                // Ajout des salles aux étages
+                floor.getSubParkings().add(hall);
+
+                // Initialisation des Parking places
+                for (int k = 0; k <= 20; k++) {
+                    Parking spot = new Parking();
+                    spot.setType(ParkingTypeEnum.SPOT);
+                    spot.setNumber(k);
+                    // Ajout de vehicules
+                    Vehicles vehicle = new Vehicles();
+                    vehicle.setRegistrationNumber(String.valueOf(new SecureRandom().nextInt(10000)));
+                    // Attribution d'un place de parking aux véhicules
+                    vehicle.setParkingSpotNumber("B1-F" + i + "-H" + j + "-S" + k);
+                    spot.setVehicle(vehicle);
+                    // Ajout des salles aux étages
+                    hall.getSubParkings().add(spot);
+                }
+            }
+        }
+        return building;
     }
 }
